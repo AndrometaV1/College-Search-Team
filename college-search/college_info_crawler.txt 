@@ -1,0 +1,152 @@
+import requests
+from bs4 import BeautifulSoup
+import re
+from pprint import pprint
+import urllib
+
+code = 0
+
+url_loop = f"https://www.collegedata.com/en/college-profile/{code}"
+
+r = (requests.get(url_loop))
+
+html = urllib3.urlopen(url_loop).read()
+
+error = "The page cannot be displayed because an internal server error has occurred."
+
+soup = BeautifulSoup(html)
+
+college_info = r.text
+
+college_interest = {}
+
+
+class Colleges:
+
+    def __init__(self, url_loop):
+        dic[key] = Colleges()
+        dic[key].college_name = college_name
+        self.location = location
+        self.website = website
+        self.pub_priv = pub_priv
+        self.undergrad_count = undergrad_count
+        self.acceptance_rate = acceptance_rate
+        self.early_action = early_action
+        self.early_decision = early_decision
+        self.regular_deadline = regular_deadline
+        self.avg_gpa = avg_gpa  # FIX THIS ALL BY NOT MAKING findAll
+        self.sat_math = sat_math
+        self.sat_ebrw = sat_ebrw
+        self.act_composite = act_composite
+        self.attendance_cost = attendance_cost
+        self.tuition = tuition
+        self.room_board = room_board
+        self.info = {}
+
+    def college_name(self, college_name):
+        self.college_name = [x.text for x in soup.findAll('h1')]
+        self.info[college_name] = self.info.get(college_name, 0) + 1
+
+    def location(self, location):
+        self.location = [x.text for x in soup.findAll('p')]
+        self.info[location] = self.info.get(location, 0) + 1
+
+    def website(self, website):
+        self.website = [x.text for x in soup.findAll('a')]
+        self.info[website] = self.info.get(website, 0) + 1
+
+    def pub_priv(self, pub_priv):
+        self.pub_priv = [x.text for x in soup.findAll('div')]
+        self.info[pub_priv] = self.info.get(pub_priv, 0) + 1
+
+    def undergrad_count(self, undergrad_count):
+        self.undergrad_count = [x.text for x in soup.findAll('span')]
+        self.info[undergrad_count] = self.info.get(undergrad_count, 0) + 1
+
+    def acceptance_rate(self, acceptance_rate):
+        self.acceptance_rate = [x.text for x in soup.findAll('dd')]
+        self.info[acceptance_rate] = self.info.get(acceptance_rate, 0) + 1
+
+    def early_action(self, early_action):
+        self.early_action = [x.text for x in soup.findAll('dd')]
+        self.info[early_action] = self.info.get(early_action, 0) + 1
+
+    def early_decision(self, early_decision):
+        self.early_decision = [x.text for x in soup.findAll('dd')]
+        self.info[early_decision] = self.info.get(early_decision, 0) + 1
+
+    def regular_deadline(self, regular_deadline):
+        self.regular_deadline = [x.text for x in soup.findAll('dd')]
+        self.info[regular_deadline] = self.info.get(regular_deadline, 0) + 1
+
+    def avg_gpa(self, avg_gpa):
+        self.avg_gpa = [x.text for x in soup.findAll('dd')]
+        self.info[avg_gpa] = self.info.get(avg_gpa, 0) + 1
+
+    def sat_math(self, sat_math):
+        self.sat_math = [x.text for x in soup.findAll('dd')]
+        self.info[sat_math] = self.info.get(sat_math, 0) + 1
+
+    def sat_ebrw(self, sat_ebrw):
+        self.sat_ebrw = [x.text for x in soup.findAll('dd')]
+        self.info[sat_ebrw] = self.info.get(sat_ebrw, 0) + 1
+
+    def act_composite(self, act_composite):
+        self.act_composite = [x.text for x in soup.findAll('dd')]
+        self.info[act_composite] = self.info.get(act_composite, 0) + 1
+
+    def attendance_cost(self, attendance_cost):
+        self.attendance_cost = [x.text for x in soup.findAll('dd')]
+        self.info[attendance_cost] = self.info.get(attendance_cost, 0) + 1
+
+    def tuition(self, tuition):
+        self.tuition = [x.text for x in soup.findAll('dd')]
+        self.info[tuition] = self.info.get(tuition, 0) + 1
+
+    def room_board(self, room_board):
+        self.room_board = [x.text for x in soup.findAll('dd')]
+        self.info[room_board] = self.info.get(room_board, 0) + 1
+
+    def add(self, college_name):
+        self.info[college_name] = self.info.get(college_name, 0) + 1
+
+
+dic = {}
+
+
+for key in range(5, 8):
+    r = requests.get(url_loop)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    texts = soup.findAll(text=True)
+    if r.text == error:
+        url_loop = f"https://www.collegedata.com/en/college-profile/{key}"
+        print(f'Error Page {key}')
+        print(url_loop)
+        key += 1
+
+    else:
+        url_loop = f"https://www.collegedata.com/en/college-profile/{key}"
+        print(url_loop)
+        college_name = soup.select(texts)  # same as college_name
+        location = [soup.findAll('p')[-1]]
+        website = [x.text for x in soup.findAll('a')]
+        pub_priv = [x.text for x in soup.findAll('div')]
+        acceptance_rate = [x.text for x in soup.findAll('dd')]
+        early_action = [x.text for x in soup.findAll('dd')]
+        early_decision = [x.text for x in soup.findAll('dd')]
+        regular_deadline = [x.text for x in soup.findAll('dd')]
+        avg_gpa = [x.text for x in soup.findAll('dd')]  # FIX THIS ALL BY NOT MAKING findAll
+        sat_math = [x.text for x in soup.findAll('dd')]
+        sat_ebrw = [x.text for x in soup.findAll('dd')]
+        act_composite = [x.text for x in soup.findAll('dd')]
+        attendance_cost = [x.text for x in soup.findAll('dd')]
+        tuition = [x.text for x in soup.findAll('dd')]
+        room_board = [x.text for x in soup.findAll('dd')]
+        dic[key] = Colleges()
+
+
+        #print(soup.prettify())
+        print(college_name)
+        key += 1
+
+

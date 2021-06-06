@@ -1,3 +1,4 @@
-For loop to go through all colleges in my college list and insert data into an excel sheet. 
+Automatically scrape college data from websites and populates a google sheet.
 
-Purpose: To automate the college search process
+Purpose: To save time during the college search process
+
